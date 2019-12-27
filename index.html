@@ -15,11 +15,34 @@
     <h1>Goldrush Bibcat 2020</h1>
     <h3>First &amp; Second Quarters - Build RDF Publishing Pipeline</h3>
     <p>
-       
+      We want to add an option to the current Goldrush service, and option
+      for libraries to select a subset of their holdings and be able to 
+      publish their MARC holdings as RDF to the web to be indexed by 
+      Google, Microsoft Bing, and DuckDuckGo web search engines.        
+    </p>
+    <p>
+      The BIBFRAME RDF is stored in Postgres database that is transformed
+      into HTML RDFa using the Schema.org ontology that is cached on the 
+      filesystem along with the sitemaps of the Alliance member libraries. 
+    </p>
+    <p>
+      Beside the RDf web publishing pipeline for the libraries MARC records,
+      we will also provide the option for libraries to receive a download of
+      files in a variety of RDF serializations like XML, n-triples, or 
+      Turtle. Using the BIBFRAME ontology, the libraries Works will be 
+      de-duplicated with other BIBFRAME Works in the Alliance's collection
+      with their specific BIBFRAME Instances. 
+    </p>
+    <h4>Technology</h4>
+    <p>Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
+       transformed into the BIBFRAME RDF and stored in a Postgres database. 
+       When a record is published, the BIBFRAME RDF is transformed into 
+       <a href="https://schema.org/">Schema</a> JSON-LD and an HTML5 representation is then
+       cached and the Alliance sitemap is updated to reflect the changes.
     </p>
     <h3>Third &amp; Forth Quarter - Hosted Sinopia Services</h3>
     <p>
-
+      
     </p>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
