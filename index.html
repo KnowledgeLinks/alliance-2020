@@ -10,40 +10,118 @@
 
     <title>KnowledgeLinks Alliance 2020 Proposal</title>
   </head>
-  <body>
+  <body class="container">
     <h2>KnowledgeLinks, LLC</h2>
     <h1>Goldrush Bibcat 2020</h1>
-    <h3>First &amp; Second Quarters - Build RDF Publishing Pipeline</h3>
-    <p>
-      We want to add an option to the current Goldrush service, and option
-      for libraries to select a subset of their holdings and be able to 
-      publish their MARC holdings as RDF to the web to be indexed by 
-      Google, Microsoft Bing, and DuckDuckGo web search engines.        
-    </p>
-    <p>
-      The BIBFRAME RDF is stored in Postgres database that is transformed
-      into HTML RDFa using the Schema.org ontology that is cached on the 
-      filesystem along with the sitemaps of the Alliance member libraries. 
-    </p>
-    <p>
-      Beside the RDf web publishing pipeline for the libraries MARC records,
-      we will also provide the option for libraries to receive a download of
-      files in a variety of RDF serializations like XML, n-triples, or 
-      Turtle. Using the BIBFRAME ontology, the libraries Works will be 
-      de-duplicated with other BIBFRAME Works in the Alliance's collection
-      with their specific BIBFRAME Instances. 
-    </p>
-    <h4>Technology</h4>
-    <p>Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
-       transformed into the BIBFRAME RDF and stored in a Postgres database. 
-       When a record is published, the BIBFRAME RDF is transformed into 
-       <a href="https://schema.org/">Schema</a> JSON-LD and an HTML5 representation is then
-       cached and the Alliance sitemap is updated to reflect the changes.
-    </p>
-    <h3>Third &amp; Forth Quarter - Hosted Sinopia Services</h3>
-    <p>
-      
-    </p>
+    <div class="row">
+      <div class="col">
+        <h3>First &amp; Second Quarters - Build RDF Publishing Pipeline</h3>
+        <p>
+         We want to add an option to the current Goldrush service, and option
+         for libraries to select a subset of their holdings and be able to 
+         publish their MARC holdings as RDF to the web to be indexed by 
+         Google, Microsoft Bing, and DuckDuckGo web search engines.        
+       </p>
+       <p>
+        The BIBFRAME RDF is stored in Postgres database that is transformed
+        into HTML RDFa using the Schema.org ontology that is cached on the 
+        filesystem along with the sitemaps of the Alliance member libraries. 
+       </p>
+       <p>
+        Beside the RDf web publishing pipeline for the libraries MARC records,
+        we will also provide the option for libraries to receive a download of
+        files in a variety of RDF serializations like XML, n-triples, or 
+        Turtle. Using the BIBFRAME ontology, the libraries Works will be 
+        de-duplicated with other BIBFRAME Works in the Alliance's collection
+        with their specific BIBFRAME Instances. 
+      </p>
+      <h4>Technology</h4>
+      <p>
+        Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
+        transformed into the BIBFRAME RDF and stored in a Postgres database, possibly using 
+        the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer. This would replace
+        the existing Alliance BIBCAT implementation of using the 
+        <a href="https://wiki.blazegraph.com/wiki/index.php/Main_Page">Blazegraph</a> 
+        triplestore technology that has been effectively abandoned by it's original developers
+        (although the main developers are now employed by Amazon and with the Blazegraph stack used
+        as the basis for Amazon's <a href="https://aws.amazon.com/neptune/">Neptune</a> graph 
+        database service.
+      </p>
+      <h4>Proposed Workflow</h4>
+      <ol>
+         <li>Library staff, using the Goldrush UI, searches for MARC records that want converted to
+           BIBFRAME
+         </li>
+         <li>
+           Backend process is kicked off:
+           <ol>
+	     <li>
+                First checks for existing BIBFRAME Instances and Works associated with the Goldrush match key
+             </li>
+             <li>If BIBFRAME Instance(s) or Work(s) are not found,
+                 the MARC record is serialized as XML, run through the Library of Congress 
+           	 <a href="https://github.com/lcnetdev/marc2bibframe2">marc2bibframe</a> XSLT to produce 
+                BIBFRAME RDF. The RDF is then stored in Postgres
+             </li>
+             <li>
+               The BIBFRAME RDF is transformed into 
+               <a href="https://schema.org/">Schema</a> JSON-LD and an HTML5 representation is then
+               cached.
+             </li>
+             <li>
+               The Alliance sitemap is updated to reflect the changes.
+             </li>
+            </ol>
+         <li>
+	   An email is sent to the library staff member notifying them of their newly published 
+           RDF
+
+      </p>
+    </div>
+    <div class="col">
+      <h3>Third &amp; Forth Quarter - Hosted Sinopia Services</h3>
+      <p>
+        The <a href="https://sinopia.io">Sinopia</a> linked data editor 
+        will be finishing up it's third development work-cycle at the end 
+        of second quarter to the beginning of the third quarter of 2020.
+        With the new Alliance RDF publishing services that will be developed 
+        in first and second quarters, we should advocate that the Alliance's 
+        Goldrush BIBCAT service as an authority source for users to search and
+        link to Alliance resources in the creation of linked data resources in 
+        Sinopia.
+      </p>
+      <h4>Technology</h4>
+      <p>  
+        Part of the expected Sinopia's third work-cycle deliverables is an 
+        attempt to make the supporting infrastructure for Sinopia more cloud 
+        agnostic instead of being so tightly coupled to Amazon Web Services like
+        Cognito and Fargate. Given a successful launch of RDF publishing
+        pipeline for the Alliance membership, a hosted version of Sinopia by the 
+        Alliance would allow library staff to edit the converted RDF resources and
+        also allow the membership to create new RDF resources.
+      </p>
+      <p>
+        The current iteration of Sinopia uses Docker containers with the following
+        structure:
+      </p>
+      <ul>
+        <li>
+	   <a href="https://nodejs.org/en/">Node.js</a> server for delivery of a 
+           <a href=https://reactjs.org/">React</a> application using 
+           <a href="https://redux.js.org/">Redux</a> for a rich client-side Javascript RDF editor.
+        </li>
+        <li>
+           The storage-layer for Sinopia uses <a href="https://www.trellisldp.org/">Trellis</a>, an 
+           open-source <a href="https://www.w3.org/TR/ldp/">linked-data platform</a> with a 
+           <a href="https://www.postgresql.org/">Postgres</a> relational database backend.
+       </li>
+        <li>
+           A Node.js middleware applications for managing Trellis group permissions and for indexing
+           the resources in Trellis into a 
+	   <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> search index.
+        </li>
+      </ul>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
