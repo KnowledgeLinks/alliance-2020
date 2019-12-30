@@ -12,30 +12,36 @@
   </head>
   <body class="container">
     <h3>KnowledgeLinks, LLC</h3>
-    <h1 class="center">Goldrush Bibcat 2020</h1>
+    <h1 class="center">Gold Rush&#174; Bibcat 2020</h1>
     <p>
        <a href="references.html">References</a>
     </p>
     <div class="row">
       <div class="col">
-        <h3>First &amp; Second Quarters - RDF Publishing Workflows</h3>
+        <h3>First Quarter - Simplify &amp; Scale RDF Publishing Workflows</h3>
+        <p class="lead">
+          Building upon the early 2017 and 2018 BIBFRAME RDF publishing experiments, 
+          the goal for the first quarter of 2020 is to simplify the technology for 
+          transforming the Alliance membership MARC records into BIBFRAME RDF in order to 
+          scale the service for publishing to the web. 
+        </p>
         <p>
-         We want to add an option to the current Goldrush service, and option
-         for libraries to select a subset of their holdings and be able to 
-         publish their MARC holdings as RDF to the web to be indexed by 
-         Google, Microsoft Bing, and DuckDuckGo web search engines.        
+         We want to add an option to the current Goldrush service to allow 
+         libraries to select a subset of their holdings and be able to 
+         publish their MARC holdings as Schema.org RDF to the web using an explicit 
+         URL pattern with additional institutional information. Libraries would also 
+         have the option to download BIBFRAME RDF resources of their selected holdings.
        </p>
-       <blockquote class="blockquote border border-primary">
-        <h3>
-	  Hypothesis #1
-        </h3>
-	<em>We believe that</em> libraries must be able to transform their MARC records to RDF
-        <em>is essential</em> for patrons usage of the library. <em>This will achieve</em> improved 
-        discovery of library collections by search engines. <em>We will have demonstrated this when
-        we can measure</em> search engine indexing of over 90% of the library's published collections.
-       </blockquote>
+       <h4>Summary of Existing Technology &amp; Workflows</h4>
+       <p>The existing Alliance BIBCAT implementation of using the 
+        <a href="https://wiki.blazegraph.com/wiki/index.php/Main_Page">Blazegraph</a> 
+        triplestore technology that has been effectively abandoned by it's original developers
+        (although the main developers are now employed by Amazon and with the Blazegraph stack used
+        as the basis for Amazon's <a href="https://aws.amazon.com/neptune/">Neptune</a> graph 
+        database service.
+       </p>
        <p>
-        The BIBFRAME RDF is stored in Postgres database that is transformed
+        The BIBFRAME RDF is stored in relational database Postgres database that is transformed
         into HTML RDFa using the Schema.org ontology that is cached on the 
         filesystem along with the sitemaps of the Alliance member libraries. 
        </p>
@@ -47,17 +53,16 @@
         de-duplicated with other BIBFRAME Works in the Alliance's collection
         with their specific BIBFRAME Instances. 
       </p>
-      <h4>Technology</h4>
+      <h4>Open Questions</h4>
+      <ol>
+        <li>Add storage to existing Goldrush database, using new tables and indices?</li>
+        <li>Continue use of Elasticsearch for web publishing?</li>
+      </ol>
+      <h4>Proposed Technology</h4>
       <p>
         Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
         transformed into the BIBFRAME RDF and stored in a Postgres database, possibly using 
-        the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer. This would replace
-        the existing Alliance BIBCAT implementation of using the 
-        <a href="https://wiki.blazegraph.com/wiki/index.php/Main_Page">Blazegraph</a> 
-        triplestore technology that has been effectively abandoned by it's original developers
-        (although the main developers are now employed by Amazon and with the Blazegraph stack used
-        as the basis for Amazon's <a href="https://aws.amazon.com/neptune/">Neptune</a> graph 
-        database service.
+        the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer. 
       </p>
       <h4>Proposed Workflow</h4>
       <ol>
@@ -91,8 +96,35 @@
       </p>
     </div>
     <div class="col">
-      <h3>Third &amp; Forth Quarter - Hosted Sinopia Services</h3>
-      <p>
+      <h3>Second Quarter - Search Engine Indexing and Publishing</h3>
+      <p class="lead">
+        Insure that Libraries collections published as web resources are indexed and available
+        through <a href="https://www.google.com">Google</a> searching; secondary support for 
+        search engines such as Microsoft <a href="https://bing.com/">Bing</a> and 
+        <a href="https://duckduckgo.com/">DuckDuckGo</a>. In addition, libraries that want to 
+        increase their collection search ranking, generated HTML pages that links back to their 
+        Gold Rush &#127; web resources will be available for inclusion in their own web sites. 
+      </p>
+      <p>Web published RDF resource to be indexed by 
+         Google, Microsoft Bing, and DuckDuckGo web search engines. In the prior 2016-2018 Gold
+         Rush&#127; Bibcat experiments, a major negative outcome was that Google did not index
+         the sitemaps of the web-published RDF resources. To mitigate this outcome, we suggest
+         including Richard Wallis of <a href="https://www.dataliberate.com/">Data Librate</a> in 
+         this phase to troubleshoot and suggest changes for improving the Google indexing of 
+         the Alliance's web published resources. 
+      </p>
+      <h4>Open Questions</h4>
+      <ol>
+        <li>Frequency of site map updates?</li>
+      </ol>
+      <h4></h4>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <h3>Third Quarter - Sinopia Authority Source</h3>
+      <p class="lead">
         The <a href="https://sinopia.io">Sinopia</a> linked data editor 
         will be finishing up it's third development work-cycle at the end 
         of second quarter to the beginning of the third quarter of 2020.
@@ -102,12 +134,41 @@
         link to Alliance resources in the creation of linked data resources in 
         Sinopia.
       </p>
+      <p>Sinopia's current authorities comes from two sources; the Library of Congress 
+      Linked Data Services at <a href="http://id.loc.gov/">id.loc.gov</a> and the Cornell University/
+      University of Iowa <a href="https://lookup.ld4l.org/">Questioning Authority</a> service.
       <h4>Technology</h4>
+      <p>
+        Sinopia uses an 
+        <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md">Open API</a> 
+        (formally known as a Swagger specification) for defining the interactions between the 
+        Questioning Authority service and the Sinopia editor. 
+      </p>
       <p>  
         Part of the expected Sinopia's third work-cycle deliverables is an 
         attempt to make the supporting infrastructure for Sinopia more cloud 
         agnostic instead of being so tightly coupled to Amazon Web Services like
-        Cognito and Fargate. Given a successful launch of RDF publishing
+        Cognito and Fargate.
+      </p>
+     <h4>Open Questions</h4>
+     <ol>
+       <li>Would <a href="https://www.ld4l.org/">LD4P</a> be open to a new authority source by 
+           the Alliance?</li>
+       <li>Is supporting a new Sinopia authority feasible?</li>
+     </ol>
+    </div>
+    <div class="col">
+      <h3>Fourth Quarter - Hosted Sinopia Editor</h3>
+      <p class="lead">
+        As <a href="https://sinopia.io">Sinopia</a> is licensed under
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2</a>, the source code
+        is available for use and extending. Given that Sinopia's initial design goals was supporting
+        multiple institutions in a collaborative cloud environment, an Alliance hosted version
+        would add another service for it's membership to do original and copy-cataloging in a native
+        linked-data environment. 
+      </p>
+      <p>
+        Given a successful launch of RDF publishing
         pipeline for the Alliance membership, a hosted version of Sinopia by the 
         Alliance would allow library staff to edit the converted RDF resources and
         also allow the membership to create new RDF resources.
@@ -133,7 +194,25 @@
 	   <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> search index.
         </li>
       </ul>
+     <h4>Open Questions</h4>
+     <ol>
+       <li>Would Alliance libraries find such a Linked Data Editor useful or valuable?</li>
+       <li>Is the additional complexity of Sinopia stack too much overhead to support?</li>
+       <li>How to keep the active development of the Sinopia Editor in sync with the Alliance's 
+           hosted version?</li>
+     </ol>
     </div>
+  </div>
+<blockquote class="blockquote border border-primary">
+    <h3>
+  Hypothesis #1
+    </h3>
+    <em>We believe that</em> libraries must be able to transform their MARC records to RDF
+    <em>is essential</em> for patrons usage of the library. <em>This will achieve</em> improved 
+    discovery of library collections by search engines. <em>We will have demonstrated this when
+    we can measure</em> search engine indexing of over 90% of the library's published collections.
+</blockquote>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
