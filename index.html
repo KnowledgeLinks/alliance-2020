@@ -13,6 +13,16 @@
   <body class="container">
     <h3>KnowledgeLinks, LLC</h3>
     <h1 class="center">Gold Rush&#174; Bibcat 2020</h1>
+    <h4>Executive Summary</h4>
+    <p class="lead">
+      KnowledgeLinks proposes three 2020 projects for the Colorado Alliance of Research Libraries.
+      
+    </p>
+    <ol class="lead">
+        <li>MARC-to-RDF Conversion, Publishing, Search Engine Indexing Project, first and second quarters</li>
+        <li>Sinopia Authority API Project - third quarter</li>
+        <li>Alliance Hosted Sinopia Instance Project - fourth quarter</li>
+    </ol>
     <p>
        <a href="references.html">References</a>
     </p>
@@ -38,7 +48,13 @@
         triplestore technology that has been effectively abandoned by it's original developers
         (although the main developers are now employed by Amazon and with the Blazegraph stack used
         as the basis for Amazon's <a href="https://aws.amazon.com/neptune/">Neptune</a> graph 
-        database service.
+        database service). After processing the BIBFRAME RDF, we index the result into 
+        <a href="https://www.catalogueraisonne.org/">Elasticsearch</a> and one or more 
+        <a href="https://www.sitemaps.org/">sitemaps</a> are generated and 
+        hosted through a <a href="https://www.nginx.com/">nginx</a> web-server with a 
+        <a href="https://www.palletsprojects.com/p/flask/">Flask</a> middleware
+        component that takes an Elasticsearch search result and produces an HTML5 page with 
+        <a href="https://schema.org">schema.org</a> JSON-LD metadata along with an HTML page per resource.
        </p>
        <p>
         The BIBFRAME RDF is stored in relational database Postgres database that is transformed
@@ -186,7 +202,8 @@
         <li>
            The storage-layer for Sinopia uses <a href="https://www.trellisldp.org/">Trellis</a>, an 
            open-source <a href="https://www.w3.org/TR/ldp/">linked-data platform</a> with a 
-           <a href="https://www.postgresql.org/">Postgres</a> relational database backend.
+           <a href="https://www.postgresql.org/">Postgres</a> or <a href="">MySQL</a> relational 
+           database backend.
        </li>
         <li>
            A Node.js middleware applications for managing Trellis group permissions and for indexing
