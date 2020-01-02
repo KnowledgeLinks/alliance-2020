@@ -11,12 +11,11 @@
     <title>KnowledgeLinks Alliance 2020 Proposal</title>
   </head>
   <body class="container">
-    <h3>KnowledgeLinks, LLC</h3>
+    <h3>KnowledgeLinks.io</h3>
     <h1 class="center">Gold Rush&#174; Bibcat 2020</h1>
     <h4>Executive Summary</h4>
     <p class="lead">
       KnowledgeLinks proposes three 2020 projects for the Colorado Alliance of Research Libraries.
-      
     </p>
     <ol class="lead">
         <li>MARC-to-RDF Conversion, Publishing, Search Engine Indexing Project, first and second quarters</li>
@@ -26,9 +25,10 @@
     <p>
        <a href="references.html">References</a>
     </p>
+    <h2  class="bg-success text-white p-3" id="proj-1">Project #1</h2>
+    <h3>First Quarter - Simplify &amp; Scale RDF Publishing Workflows</h3>
     <div class="row">
       <div class="col">
-        <h3>First Quarter - Simplify &amp; Scale RDF Publishing Workflows</h3>
         <p class="lead">
           Building upon the early 2017 and 2018 BIBFRAME RDF publishing experiments, 
           the goal for the first quarter of 2020 is to simplify the technology for 
@@ -48,39 +48,34 @@
         triplestore technology that has been effectively abandoned by it's original developers
         (although the main developers are now employed by Amazon and with the Blazegraph stack used
         as the basis for Amazon's <a href="https://aws.amazon.com/neptune/">Neptune</a> graph 
-        database service). After processing the BIBFRAME RDF, we index the result into 
-        <a href="https://www.catalogueraisonne.org/">Elasticsearch</a> and one or more 
+        database service).
+       </p>
+       <p>
+       After processing the <a href="http://bibframe.org/">BIBFRAME</a> RDF, we index the result into 
+        <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and one or more 
         <a href="https://www.sitemaps.org/">sitemaps</a> are generated and 
         hosted through a <a href="https://www.nginx.com/">nginx</a> web-server with a 
         <a href="https://www.palletsprojects.com/p/flask/">Flask</a> middleware
         component that takes an Elasticsearch search result and produces an HTML5 page with 
         <a href="https://schema.org">schema.org</a> JSON-LD metadata along with an HTML page per resource.
        </p>
-       <p>
-        The BIBFRAME RDF is stored in relational database Postgres database that is transformed
-        into HTML RDFa using the Schema.org ontology that is cached on the 
-        filesystem along with the sitemaps of the Alliance member libraries. 
-       </p>
-       <p>
-        Beside the RDf web publishing pipeline for the libraries MARC records,
-        we will also provide the option for libraries to receive a download of
-        files in a variety of RDF serializations like XML, n-triples, or 
-        Turtle. Using the BIBFRAME ontology, the libraries Works will be 
-        de-duplicated with other BIBFRAME Works in the Alliance's collection
-        with their specific BIBFRAME Instances. 
-      </p>
-      <h4>Open Questions</h4>
-      <ol>
-        <li>Add storage to existing Goldrush database, using new tables and indices?</li>
-        <li>Continue use of Elasticsearch for web publishing?</li>
-      </ol>
-      <h4>Proposed Technology</h4>
+          </div>
+      <div class="col">
+        <div class="alert alert-warning">
+          <h4 class="alert-heading">Open Questions</h4>
+          <ol>
+            <li>Add storage to existing Goldrush database, using new tables and indices?</li>
+            <li>Continue use of Elasticsearch for web publishing?</li>
+          </ol>
+      </div>
+      <h4>Proposed Technology &amp; Workflow</h4>
       <p>
         Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
         transformed into the BIBFRAME RDF and stored in a Postgres database, possibly using 
-        the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer. 
+        the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer if we do not use
+        the existing Gold Rush&reg; database. We would continue to use Flask for web application 
+        layer to publish RDF to the web.
       </p>
-      <h4>Proposed Workflow</h4>
       <ol>
          <li>Library staff, using the Goldrush UI, searches for MARC records that want converted to
            BIBFRAME
@@ -94,7 +89,10 @@
              <li>If BIBFRAME Instance(s) or Work(s) are not found,
                  the MARC record is serialized as XML, run through the Library of Congress 
            	 <a href="https://github.com/lcnetdev/marc2bibframe2">marc2bibframe</a> XSLT to produce 
-                BIBFRAME RDF. The RDF is then stored in Postgres
+                BIBFRAME RDF. The RDF is then stored in the database.
+             </li>
+             <li>
+               Record is indexed into Elasticsearch
              </li>
              <li>
                The BIBFRAME RDF is transformed into 
@@ -105,15 +103,33 @@
                The Alliance sitemap is updated to reflect the changes.
              </li>
             </ol>
+         </li>
          <li>
 	   An email is sent to the library staff member notifying them of their newly published 
            RDF
+         </li>
+      </ol>
+       <p>
+        The BIBFRAME RDF is stored in a Postgres or MySQL relational database that is transformed
 
+        into HTML RDFa using the Schema.org ontology that is cached on the 
+        filesystem along with the sitemaps of the Alliance member libraries. 
+       </p>
+       <p>
+        Beside the RDF web publishing pipeline for the libraries MARC records,
+        we will also provide the option for libraries to receive a download of
+        files in a variety of RDF serializations like XML, n-triples, or 
+        Turtle. Using the BIBFRAME ontology, the libraries Works will be 
+        de-duplicated with other BIBFRAME Works in the Alliance's collection
+        with their specific BIBFRAME Instances. 
       </p>
+
     </div>
+  </div>
+  <h3>Second Quarter - Search Engine Indexing and Publishing</h3>
+  <div class="row">
     <div class="col">
-      <h3>Second Quarter - Search Engine Indexing and Publishing</h3>
-      <p class="lead">
+        <p class="lead">
         Insure that Libraries collections published as web resources are indexed and available
         through <a href="https://www.google.com">Google</a> searching; secondary support for 
         search engines such as Microsoft <a href="https://bing.com/">Bing</a> and 
@@ -129,18 +145,25 @@
          this phase to troubleshoot and suggest changes for improving the Google indexing of 
          the Alliance's web published resources. 
       </p>
-      <h4>Open Questions</h4>
-      <ol>
-        <li>Frequency of site map updates?</li>
-      </ol>
-      <h4></h4>
+    </div>
+    <div class="col">
+      <div class="alert alert-warning">
+        <h4 class="alert-heading">Open Questions</h4>
+        <ol>
+          <li>Frequency of site map updates?</li>
+          <li>Container Management using 
+              <a href="https://docs.docker.com/engine/swarm/">Docker Swarm</a> or 
+              <a href="https://kubernetes.io/">Kubernetes</a>?
+          </li>
+        </ol>
+       </div>
     </div>
   </div>
-  <hr />
+  <h2 class="bg-success text-white p-3">Project #2</h2>
+  <h3>Third Quarter - Sinopia Authority Source</h3>
   <div class="row">
     <div class="col">
-      <h3>Third Quarter - Sinopia Authority Source</h3>
-      <p class="lead">
+       <p class="lead">
         The <a href="https://sinopia.io">Sinopia</a> linked data editor 
         will be finishing up it's third development work-cycle at the end 
         of second quarter to the beginning of the third quarter of 2020.
@@ -166,15 +189,26 @@
         agnostic instead of being so tightly coupled to Amazon Web Services like
         Cognito and Fargate.
       </p>
-     <h4>Open Questions</h4>
-     <ol>
-       <li>Would <a href="https://www.ld4l.org/">LD4P</a> be open to a new authority source by 
-           the Alliance?</li>
-       <li>Is supporting a new Sinopia authority feasible?</li>
-     </ol>
     </div>
     <div class="col">
-      <h3>Fourth Quarter - Hosted Sinopia Editor</h3>
+     <div class="alert alert-warning">  
+       <h4 class="alert-heading">Open Questions</h4>
+       <ol>
+         <li>Would <a href="https://www.ld4l.org/">LD4P</a> be open to a new authority source by 
+           the Alliance?</li>
+         <li>Is supporting a new Sinopia authority feasible?</li>
+        </ol>
+      </div>
+      <h3>Proposed Technology</h3>
+      <p>We would extend the current Flask middleware to support the Sinopia Open-API REST 
+         web services based on an Elasticsearch backend for the Alliance's published RDF 
+         resources.</p>
+    </div>
+ </div>
+ <h2 class="bg-success text-white p-3" id="proj-3">Project #3</h2>
+ <h3>Fourth Quarter - Hosted Sinopia Editor</h3>
+ <div class="row">
+    <div class="col">
       <p class="lead">
         As <a href="https://sinopia.io">Sinopia</a> is licensed under
         <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2</a>, the source code
@@ -202,7 +236,7 @@
         <li>
            The storage-layer for Sinopia uses <a href="https://www.trellisldp.org/">Trellis</a>, an 
            open-source <a href="https://www.w3.org/TR/ldp/">linked-data platform</a> with a 
-           <a href="https://www.postgresql.org/">Postgres</a> or <a href="">MySQL</a> relational 
+           <a href="https://www.postgresql.org/">Postgres</a> relational 
            database backend.
        </li>
         <li>
@@ -211,25 +245,22 @@
 	   <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> search index.
         </li>
       </ul>
-     <h4>Open Questions</h4>
-     <ol>
-       <li>Would Alliance libraries find such a Linked Data Editor useful or valuable?</li>
-       <li>Is the additional complexity of Sinopia stack too much overhead to support?</li>
-       <li>How to keep the active development of the Sinopia Editor in sync with the Alliance's 
+    </div>   
+    <div class="col">
+     <div class="alert alert-warning">
+       <h4 class="alert-heading">Open Questions</h4>
+       <ol>
+         <li>Would Alliance libraries find such a Linked Data Editor useful or valuable?</li>
+         <li>Is the additional complexity of Sinopia stack too much overhead to support?</li>
+         <li>How to keep the active development of the Sinopia Editor in sync with the Alliance's 
            hosted version?</li>
-     </ol>
+       </ol>
+      </div>
     </div>
   </div>
-<blockquote class="blockquote border border-primary">
-    <h3>
-  Hypothesis #1
-    </h3>
-    <em>We believe that</em> libraries must be able to transform their MARC records to RDF
-    <em>is essential</em> for patrons usage of the library. <em>This will achieve</em> improved 
-    discovery of library collections by search engines. <em>We will have demonstrated this when
-    we can measure</em> search engine indexing of over 90% of the library's published collections.
-</blockquote>
-
+  <footer class="footer">
+    Copyright &copy; 2020 KnowledgeLink LLC
+  </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
