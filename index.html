@@ -55,7 +55,8 @@
         <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and one or more 
         <a href="https://www.sitemaps.org/">sitemaps</a> are generated and 
         hosted through a <a href="https://www.nginx.com/">nginx</a> web-server with a 
-        <a href="https://www.palletsprojects.com/p/flask/">Flask</a> middleware
+        <a href="https://www.palletsprojects.com/p/flask/">Flask</a> and/or 
+        <a href="https://fastapi.tiangolo.com/">FastAPI</a> middleware
         component that takes an Elasticsearch search result and produces an HTML5 page with 
         <a href="https://schema.org">schema.org</a> JSON-LD metadata along with an HTML page per resource.
        </p>
@@ -81,14 +82,15 @@
      <div class="col">
       <h4>Proposed Technology &amp; Workflow</h4>
       <p>
-        Java RDF middleware runs the individual MARC21 records to MARC XML that is then 
-        transformed into the BIBFRAME RDF and stored in a Postgres database, possibly using 
+        Java RDF middleware takes individual MARC21 records into MARC XML that is then 
+        transformed into the BIBFRAME RDF and stored in a Postgres or MySQL database, possibly using 
         the <a href="https://www.trellisldp.org/">Trellis</a> as an API layer if we do not use
-        the existing Gold Rush&reg; database. We would continue to use Flask for web application 
-        layer to publish RDF to the web.
+        the existing Gold Rush&reg; database. We would continue to use Flask for the web application 
+        layer to publish RDF to the web and generate the sitemaps for external search engine 
+        indexing.
       </p>
       <ol>
-         <li>Library staff, using the Goldrush UI, searches for MARC records that want converted to
+         <li>Library staff, using the Goldrush UI, searches for MARC records that they want converted to
            BIBFRAME
          </li>
          <li>
@@ -218,7 +220,7 @@
         </ol>
       </div>
       <h3>Proposed Technology</h3>
-      <p>We would extend the current Flask middleware to support the Sinopia Open-API REST 
+      <p>We would extend the current Flask/FastAPI middleware to support the Sinopia Open-API REST 
          web services based on an Elasticsearch backend for the Alliance's published RDF 
          resources.
       </p>
@@ -226,7 +228,9 @@
         <h4 class="alert-heading">Actionable Metrics</h4>
         <ul>
            <li>Successful use of Alliance Authority URN in a Sinopia Lookup component</li>
-           <li></li>
+           <li>Members that are also part of the PCC will be able to save created RDF entities linking
+               to Alliance RDF entities
+           </li>
         </ul>
       </div>
     </div>
